@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;1,200&display=swap");
+
+:root {
+	--clr-primary: rgb(240, 248, 255);
+	--clr-light: rgb(255, 255, 255);
+	--clr-head: rgb(115, 62, 158);
+	--clr-highlight: rgb(42, 30, 53);
+	--clr-shadow: rgba(158, 158, 158, 0.6);
+	--clr-footer: rgba(33, 37, 41, 0.87);
+	--clr-scroll: rgba(33, 37, 41, 0.245);
+}
+
+* {
+	box-sizing: border-box;
+}
+body {
+	min-height: 100vh;
+	width: 100%;
+	background-color: var(--clr-primary);
+	display: flex;
+	flex-wrap: wrap;
+	font-family: "Poppins", sans-serif;
+	margin: 0;
+	padding-top: 5.5rem;
+}
+
+::-webkit-scrollbar {
+	width: 0.5em;
+}
+
+::-webkit-scrollbar-thumb {
+	background: linear-gradient(transparent, var(--clr-scroll));
+	border-radius: 6px;
+}
+
+.add {
+	font-family: inherit;
+	background-color: var(--clr-head);
+	border: none;
+	color: var(--clr-light);
+	cursor: pointer;
+	margin: 2rem auto;
+	padding: 0.5rem 1rem;
+	position: fixed;
+	top: 1rem;
+	right: 1rem;
+	box-shadow: 0 0 1rem var(--clr-shadow);
+}
+
+.add:hover {
+	transition: 250ms ease-in-out;
+	background-color: var(--clr-light);
+	color: var(--clr-head);
+}
+
+.note {
+	background-color: var(--clr-light);
+	margin: 20px;
+	width: 400px;
+	height: 425px;
+	box-shadow: 0 0.5rem 2rem var(--clr-shadow);
+}
+
+.note:last-child {
+	margin-bottom: 4em;
+}
+
+.note .tools {
+	background-color: var(--clr-head);
+	display: flex;
+	justify-content: flex-end;
+	padding: 0.5rem;
+}
+
+.note .tools button {
+	background-color: transparent;
+	color: var(--clr-light);
+	cursor: pointer;
+	border: none;
+	font-size: 1rem;
+	margin-left: 0.5rem;
+}
+.note .tools button:hover {
+	transition: all 150ms ease-in-out;
+	color: var(--clr-highlight);
+}
+
+.note .text {
+	background-color: var(--clr-light);
+	height: 375px;
+	overflow-y: scroll;
+	margin-left: 1rem;
+}
+
+.note textarea {
+	outline: none;
+	font-family: inherit;
+	font-size: 1rem;
+	border: none;
+	height: 375px;
+	width: 100%;
+	resize: none;
+}
+.note .hidden {
+	display: none;
+}
+
+footer {
+	width: 100%;
+	max-height: 50px;
+	padding: 0 2em;
+	background-color: var(--clr-footer);
+	position: fixed;
+	bottom: 0;
+	overflow: hidden;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.f1,
+.f2 {
+	padding: 5px 0 0 1em;
+}
