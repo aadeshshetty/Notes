@@ -3,16 +3,23 @@
 :root {
 	--clr-primary: rgb(240, 248, 255);
 	--clr-light: rgb(255, 255, 255);
-	--clr-head: rgb(115, 62, 158);
+	--clr-head: hsl(273, 44%, 43%);
 	--clr-highlight: rgb(42, 30, 53);
 	--clr-shadow: rgba(158, 158, 158, 0.6);
 	--clr-footer: rgba(33, 37, 41, 0.87);
 	--clr-scroll: rgba(33, 37, 41, 0.245);
+	--clr-select: hsl(0, 0%, 69%);
 }
 
 * {
 	box-sizing: border-box;
 }
+
+::selection {
+	background-color: var(--clr-select);
+	color: #28282b;
+}
+
 body {
 	min-height: 100vh;
 	width: 100%;
