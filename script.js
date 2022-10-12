@@ -3,7 +3,7 @@ const addBtn = document.getElementById("add");
 
 const notes = JSON.parse(localStorage.getItem("notes"));
 
-var headarr = JSON.parse(localStorage.getItem("heads"));
+const heads = JSON.parse(localStorage.getItem("heads"));
 
 const helpBtn = document.getElementById("help");
 
@@ -16,11 +16,11 @@ addBtn.addEventListener("click", (e) => {
 //FUNCTION
 
 if (notes) {
-	const len=notes.length;
-	// console.log(len);
-	notes.forEach((note,index) => {
-		addNewNote(note,index);
+	
+	notes.forEach((note, index) => {
+		addNewNote(note, index);
 	});
+
 }
 
 
@@ -31,7 +31,7 @@ function addNewNote(text = "",index) {
         <div class="notes">
 			<div class="head-container">
 				<div class="head">
-					<a class="heading">${index<headarr.length?headarr[index]:"Note"}</a>
+					<a class="heading">${(heads!==null&&index<heads.length)?heads[index]:"Note"}</a>
 				</div>
 				<div class="tools">
 					<button class="download"><i class="fas fa-download"></i></button>
@@ -52,15 +52,17 @@ function addNewNote(text = "",index) {
 	const textArea = note.querySelector("textarea");
 
 	textArea.value = text;
-	main.innerHTML = marked(text);
+
+	main.innerHTML = marked.parse(text);
 
 	//EVENT LISTENER
+	
 
 	heading.addEventListener("dblclick", (e) =>{
 		var head= prompt("Enter name here");
 		if(head!=null){
-		note.querySelector(".heading").innerHTML=head;
-		updateheadLs(note);
+			note.querySelector(".heading").innerHTML=head;
+			updateLS();
 		}
 	});
 
@@ -68,7 +70,7 @@ function addNewNote(text = "",index) {
 		const content = textArea.value;
 		var currNote=note;
 		if(content){
-		downloadNote(content,currNote);
+			downloadNote(content,currNote);
 		}
 	});
 
@@ -76,12 +78,10 @@ function addNewNote(text = "",index) {
 		var con = confirm("Are you sure want to delete the note?");
 		if(con){
 			const head=note.querySelector('.text').innerText;
-			// console.log(JSON.parse(localStorage.getItem("notes")).indexOf(head),JSON.parse(localStorage.getItem("notes")),head.replace(/\r?\n|\r/g, " "));
 			const index=JSON.parse(localStorage.getItem("notes")).indexOf(head);
 			var arr=JSON.parse(localStorage.getItem("heads"))
 			arr.splice(index,1);
 			localStorage.setItem("heads", JSON.stringify(arr));
-			// console.log(arr,JSON.parse(localStorage.getItem("heads")));
 			note.remove();
 			updateLS();
 		}
@@ -94,8 +94,7 @@ function addNewNote(text = "",index) {
 
 	textArea.addEventListener("input", (e) => {
 		const { value } = e.target;
-		const currNote = note;
-		main.innerHTML = marked(value);
+		main.innerHTML = marked.parse(value);
 		updateLS();
 	});
 
@@ -117,30 +116,49 @@ function downloadNote(content,currNote) {
 };
 
 function updateLS() {
-	
-	const notesText = document.querySelectorAll("textarea");
+	const headText = document.querySelectorAll(".heading");
+	// console.log(headText);
+	const heads=[]
+
+	headText.forEach(head => {
+		heads.push(head.innerText);
+	});
+
+	localStorage.setItem("heads", JSON.stringify(heads));
+
+	const notesText = document.querySelectorAll(".area");
 	const notes=[]
-	
+
 	notesText.forEach((note) => {
 		notes.push(note.value);
 	});
+
 	localStorage.setItem("notes", JSON.stringify(notes));
 
 }
 
-var heads=[];
-function updateheadLs(currNote){
-	if(localStorage.getItem('heads')){
-		console.log(JSON.parse(localStorage.getItem('heads')));
-		heads=JSON.parse(localStorage.getItem('heads'));
-		
-	}
-	const head = currNote.querySelector('.heading');
+// var heads=[];
+// function updateheadLs(currNote){
+// 	if(notes==null){
+// 		heads.push("Note");
+// 	}
+// 	else if(localStorage.getItem('heads')){
+// 		console.log(JSON.parse(localStorage.getItem('heads')));
+// 		heads=JSON.parse(localStorage.getItem('heads'));
+// 		const currhead = currNote.querySelector('.heading');
+// 		const currtext=currNote.querySelector('.text').innerText;
+// 				// console.log(JSON.parse(localStorage.getItem("notes")).indexOf(head),JSON.parse(localStorage.getItem("notes")),head.replace(/\r?\n|\r/g, " "));
+// 		const index=JSON.parse(localStorage.getItem("notes")).indexOf(currtext);
+// 		// console.log(head.innerText);
+// 		if(heads!==null && index>heads.length){
+// 			heads.push(currhead.innerText);
+// 		}else{
+// 			heads[index]=currhead.innerText;
+// 		}
+// 	}
 	
-	// console.log(head.innerText);
-	heads.push(head.innerText);
-	localStorage.setItem("heads",JSON.stringify(heads));
-}
+// 	localStorage.setItem("heads",JSON.stringify(heads));
+// }
 
 const hel = document.querySelector('.help-btn');
 document.addEventListener('mouseup', function (e) {
